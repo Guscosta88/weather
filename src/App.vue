@@ -19,7 +19,8 @@
 
         <div class="weather-box">
           <div class="temp">{{ Math.round(weather.main.temp) }}°c</div>
-          <div class="weather">{{ weather.weather[0].main }}</div>
+          <div class="weather"><img width="100" v-bind:src="imgBuilder()" /></div>
+          
         </div>
       </div>
     </main>
@@ -49,6 +50,9 @@ export default {
     setResults (results) {
       this.weather = results;
     },
+    updateCondition(index) {
+      this.selectedCondition = index
+    },
     dateBuilder () {
       let d = new Date();
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -60,6 +64,12 @@ export default {
       let year = d.getFullYear();
 
       return `${day} ${date} ${month} ${year}`;
+    },
+    imgBuilder(){
+      let img = this.weather.weather[0].main;
+
+      return require('./assets/' + img + '.png');
+
     }
   }
 }
